@@ -10,5 +10,6 @@ public class CurrencyDtoMono {
     private float rateBuy;
     private float rateSell;
     private float rateCross;
+    private String currencyName;
 
 }

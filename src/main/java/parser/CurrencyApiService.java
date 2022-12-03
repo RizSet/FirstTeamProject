@@ -1,8 +1,11 @@
 package parser;
 
+import parser.dto.Currencies;
+import parser.dto.CurrencyRate;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface CurrencyApiService {
-    BigDecimal getRate (List<String> currencies);
+    List<CurrencyRate> getRate (List<Currencies> currencies);
 }

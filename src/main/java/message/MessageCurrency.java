@@ -14,8 +14,14 @@ public class MessageCurrency {
             }
         } else if(option.getChosenBank().equals(Banks.PRIVATE)) {
             System.out.println("Курс в PrivatBank");
+            for(int i = 0;i < option.getCurrencies().size(); i++) {
+                System.out.println();
+            }
         } else {
             System.out.println("Курс в NBU");
+            for(int i = 0;i < option.getCurrencies().size(); i++) {
+                System.out.println();
+            }
         }
     }
 }

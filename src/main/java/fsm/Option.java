@@ -7,9 +7,31 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Option {
-
     int singAfterCommas = 2;
     private List<Currencies> currencies = Arrays.asList(Currencies.USD);
     private Banks chosenBank = Banks.PRIVATE;
 
+    public int getSingAfterCommas() {
+        return singAfterCommas;
+    }
+
+    public void setSingAfterCommas(int singAfterCommas) {
+        this.singAfterCommas = singAfterCommas;
+    }
+
+    public List<Currencies> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<Currencies> currencies) {
+        this.currencies = currencies;
+    }
+
+    public Banks getChosenBank() {
+        return chosenBank;
+    }
+
+    public void setChosenBank(Banks chosenBank) {
+        this.chosenBank = chosenBank;
+    }
 }

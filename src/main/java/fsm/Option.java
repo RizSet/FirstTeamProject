@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Option {
     private int singAfterCommas = 2;
-    private List<Currencies> currencies = Arrays.asList(Currencies.USD);
-    private Banks chosenBank = Banks.PRIVATE;
+    private List<Currencies> currencies = Arrays.asList(Currencies.USD, Currencies.EUR);
+    private Banks chosenBank = Banks.MONO;
 
     public int getSingAfterCommas() {
         return singAfterCommas;

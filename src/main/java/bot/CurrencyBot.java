@@ -9,7 +9,15 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.HashMap;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
-    HashMap<String, Option> clients = new HashMap<>();
+    private static HashMap<String, Option> clients = new HashMap<>();
+
+    public HashMap<String, Option> getClients() {
+        return clients;
+    }
+
+    public void setClients(HashMap<String, Option> clients) {
+        CurrencyBot.clients = clients;
+    }
 
     public CurrencyBot() {
         register(new StartCommand());
@@ -34,6 +42,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
             case ("Валюта"):
                 break;
             case ("Банк"):
+//                BunkButton.getMessage();
                 break;
             case ("Час отримання повідомлень"):
                 break;

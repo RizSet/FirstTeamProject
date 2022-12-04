@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,16 +23,16 @@ public class StartCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        String text = "Ласкаво просимо! Цей бот допоможе вам відслідковувати курси валют в умовах заборони їх демонстрації для обмінників!";
+        String text = "Р›Р°СЃРєР°РІРѕ РїСЂРѕСЃРёРјРѕ! Р¦РµР№ Р±РѕС‚ РґРѕРїРѕРјРѕР¶Рµ РІР°Рј РІС–РґСЃР»С–РґРєРѕРІСѓРІР°С‚Рё РєСѓСЂСЃРё РІР°Р»СЋС‚ РІ СѓРјРѕРІР°С… Р·Р°Р±РѕСЂРѕРЅРё С—С… РґРµРјРѕРЅСЃС‚СЂР°С†С–С— РґР»СЏ РѕР±РјС–РЅРЅРёРєС–РІ!";
 
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chat.getId());
 
-        List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію по курсу валют")
+        List<InlineKeyboardButton> rowButton1 = Stream.of("РћС‚СЂРёРјР°С‚Рё С–РЅС„РѕСЂРјР°С†С–СЋ РїРѕ РєСѓСЂСЃСѓ РІР°Р»СЋС‚")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of( "Налаштування")
+        List<InlineKeyboardButton> rowButton2 = Stream.of( "РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

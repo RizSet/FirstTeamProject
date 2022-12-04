@@ -25,19 +25,19 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
             optionCurrentChat = clients.get(chatId);
         }
         switch (update.getCallbackQuery().getData()) {
-            case ("Отримати інформацію по курсу валют"):
+            case ("РћС‚СЂРёРјР°С‚Рё С–РЅС„РѕСЂРјР°С†С–СЋ РїРѕ РєСѓСЂСЃСѓ РІР°Р»СЋС‚"):
                 break;
-            case ("Налаштування"):
+            case ("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"):
                 break;
-            case ("Кількість знаків після коми"):
+            case ("РљС–Р»СЊРєС–СЃС‚СЊ Р·РЅР°РєС–РІ РїС–СЃР»СЏ РєРѕРјРё"):
                 break;
-            case ("Валюта"):
+            case ("Р’Р°Р»СЋС‚Р°"):
                 break;
-            case ("Банк"):
+            case ("Р‘Р°РЅРє"):
                 break;
-            case ("Час отримання повідомлень"):
+            case ("Р§Р°СЃ РѕС‚СЂРёРјР°РЅРЅСЏ РїРѕРІС–РґРѕРјР»РµРЅСЊ"):
                 break;
-            case ("До головного меню"):
+            case ("Р”Рѕ РіРѕР»РѕРІРЅРѕРіРѕ РјРµРЅСЋ"):
                 break;
         }
     }

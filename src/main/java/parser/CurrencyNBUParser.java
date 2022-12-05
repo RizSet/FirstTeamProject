@@ -3,6 +3,9 @@ package parser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jsoup.Jsoup;
+
+import parser.CurrencyApiService;
+
 import parser.dto.Currencies;
 import parser.dto.CurrencyDtoNBU;
 import parser.dto.CurrencyRate;
@@ -34,16 +37,19 @@ public class CurrencyNBUParser implements CurrencyApiService {
         Gson gson = new Gson();
         List<CurrencyDtoNBU> currencyDtos = gson.fromJson(json, typeToken);
         List<CurrencyRate> list = new ArrayList<>();
-        for (Currencies currency : currencies) {
-            if (currency.equals(Currencies.USD)) {
-                BigDecimal buy = currencyDtos.stream().filter(it -> it.getCc() == Currencies.USD)
-                        .map(CurrencyDtoNBU::getRate).findFirst().orElseThrow();
-                CurrencyRate currencyRate = new CurrencyRate(BigDecimal.valueOf(0), buy, Currencies.USD);
+
+        for (int i = 0; i < currencies.size(); i++) {
+            if (currencies.get(i).equals(Currencies.USD)) {
+                BigDecimal rate = currencyDtos.stream().filter(it -> it.getCc() == Currencies.USD)
+                        .map(it -> it.getRate()).findFirst().orElseThrow();
+                CurrencyRate currencyRate = new CurrencyRate(null, rate , Currencies.USD);
                 list.add(currencyRate);
-            } else if (currency.equals(Currencies.EUR)) {
-                BigDecimal buy = currencyDtos.stream().filter(it -> it.getCc() == Currencies.EUR)
-                        .map(CurrencyDtoNBU::getRate).findFirst().orElseThrow();
-                CurrencyRate currencyRate = new CurrencyRate(BigDecimal.valueOf(0), buy, Currencies.EUR);
+
+            } else if (currencies.get(i).equals(Currencies.EUR)) {
+                BigDecimal rate = currencyDtos.stream().filter(it -> it.getCc() == Currencies.EUR)
+                        .map(it -> it.getRate()).findFirst().orElseThrow();
+                CurrencyRate currencyRate = new CurrencyRate(null, rate , Currencies.EUR);
+
                 list.add(currencyRate);
             }
         }

@@ -1,9 +1,12 @@
-package parser.dto;
+package parser;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jsoup.Jsoup;
 import parser.CurrencyApiService;
+import parser.dto.Currencies;
+import parser.dto.CurrencyDtoNBU;
+import parser.dto.CurrencyRate;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

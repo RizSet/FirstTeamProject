@@ -9,9 +9,9 @@ public class CurrencyRate {
     Currencies currency;
 
     public CurrencyRate(BigDecimal sell, BigDecimal buy, Currencies currency) {
-        setSell(sell);
-        setBuy(buy);
-        setCurrency(currency);
+        this.sell = sell;
+        this.buy = buy;
+        this.currency = currency;
     }
 
     public BigDecimal getSell() {

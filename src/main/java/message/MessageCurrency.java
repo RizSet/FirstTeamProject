@@ -13,31 +13,41 @@ public class MessageCurrency {
     CurrencyApiService privatbank = new CurrencyPrivateParser();
     CurrencyApiService nbu = new CurrencyNBUParser();
 
-    public void printMesssage(){
+    public String printMesssage(){
+        String result = "";
         if (option.getChosenBank().equals(Banks.MONO)) {
-            System.out.println("Курс в Monobank:");
-            printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas());
+            result += "Курс в Monobank:\n";
+            result += printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas());
         } else if(option.getChosenBank().equals(Banks.PRIVATE)) {
-            System.out.println("Курс в PrivatBank:");
-            printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas());
+            result += "Курс в PrivatBank:\n";
+            result += printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas());
         } else {
-            System.out.println("Курс в NBU:");
-            printCurrensy(nbu.getRate(option.getCurrencies()), option.getSingAfterCommas());
+            result += "Курс в NBU:\n";
+            result += printCurrensy(nbu.getRate(option.getCurrencies()), option.getSingAfterCommas());
         }
+        return result;
     }
 
-    private void printCurrensy(List<CurrencyRate> currensyList, int singAfterCommas) {
+    private String printCurrensy(List<CurrencyRate> currensyList, int singAfterCommas) {
+        StringBuilder currensyResult = new StringBuilder();
         if (option.getChosenBank().equals(Banks.NBU)) {
             for (CurrencyRate currensyInfo: currensyList) {
-                System.out.println(currensyInfo.getCurrency() + "/UAH");
-                System.out.println("Курс:" + currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN));
+                currensyResult.append(currensyInfo.getCurrency()).append("/UAH\n");
+                currensyResult.append("Курс:")
+                        .append(currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN))
+                                .append("\n");
             }
         } else {
             for (CurrencyRate currensyInfo : currensyList) {
-                System.out.println(currensyInfo.getCurrency() + "/UAH");
-                System.out.println("Покупка:" + currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN));
-                System.out.println("Продаж:" + currensyInfo.getSell().setScale(singAfterCommas, RoundingMode.DOWN));
+                currensyResult.append(currensyInfo.getCurrency()).append("/UAH\n");
+                currensyResult.append("Покупка:")
+                        .append(currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN))
+                        .append("\n");
+                currensyResult.append("Продаж:")
+                        .append(currensyInfo.getSell().setScale(singAfterCommas, RoundingMode.DOWN))
+                        .append("\n");
             }
         }
+        return currensyResult.toString();
     }
 }

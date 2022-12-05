@@ -14,13 +14,19 @@ import java.util.stream.Stream;
 
 public class CurrencyNBUParser implements CurrencyApiService {
     @Override
-    public List<CurrencyRate> getRate(List<Currencies> currencies) throws IOException {
+    public List<CurrencyRate> getRate(List<Currencies> currencies) {
         String url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
-        String json = Jsoup.connect(url)
-                .ignoreContentType(true)
-                .get()
-                .body()
-                .text();
+        String json = null;
+        try {
+            json = Jsoup.connect(url)
+                    .ignoreContentType(true)
+                    .get()
+                    .body()
+                    .text();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalStateException("Connection was not success");
+        }
         Type typeToken = TypeToken.getParameterized(List.class, CurrencyDtoNBU.class)
                 .getType();
 

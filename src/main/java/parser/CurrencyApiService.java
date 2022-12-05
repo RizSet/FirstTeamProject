@@ -8,5 +8,5 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CurrencyApiService {
-    List<CurrencyRate> getRate (List<Currencies> currencies) throws IOException;
+    List<CurrencyRate> getRate (List<Currencies> currencies);
 }

@@ -12,6 +12,8 @@ public class CurrencyRate {
         this.buy = buy;
         this.currency = currency;
     }
+
+
     public BigDecimal getSell() {
         return sell;
     }

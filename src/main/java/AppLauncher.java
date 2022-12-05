@@ -1,8 +1,7 @@
-import message.MessageCurrency;
+import bot.BotsLauncher;
 
 public class AppLauncher {
     public static void main(String[] args) {
-        MessageCurrency messageCurrency = new MessageCurrency();
-        messageCurrency.printMesssage();
+        BotsLauncher botService = new BotsLauncher();
     }
 }

@@ -35,18 +35,15 @@ public class CurrencyNBUParser implements CurrencyApiService {
         List<CurrencyRate> list = new ArrayList<>();
         for (int i = 0; i < currencies.size(); i++) {
             if (currencies.get(i).equals(Currencies.USD)) {
-                CurrencyRate currencyRate = new CurrencyRate();
-                currencyRate.currency = Currencies.USD;
-                currencyRate.sell = null;
-                currencyRate.buy = currencyDtos.stream().filter(it -> it.getCc() == Currencies.USD)
+                BigDecimal rate = currencyDtos.stream().filter(it -> it.getCc() == Currencies.USD)
                         .map(it -> it.getRate()).findFirst().orElseThrow();
+                CurrencyRate currencyRate = new CurrencyRate(null, rate , Currencies.USD);
                 list.add(currencyRate);
+
             } else if (currencies.get(i).equals(Currencies.EUR)) {
-                CurrencyRate currencyRate = new CurrencyRate();
-                currencyRate.currency = Currencies.EUR;
-                currencyRate.sell = null;
-                currencyRate.buy = currencyDtos.stream().filter(it -> it.getCc() == Currencies.EUR)
+                BigDecimal rate = currencyDtos.stream().filter(it -> it.getCc() == Currencies.EUR)
                         .map(it -> it.getRate()).findFirst().orElseThrow();
+                CurrencyRate currencyRate = new CurrencyRate(null, rate , Currencies.EUR);
                 list.add(currencyRate);
             }
         }

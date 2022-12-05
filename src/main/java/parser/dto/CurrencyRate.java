@@ -8,6 +8,12 @@ public class CurrencyRate {
     BigDecimal buy;
     Currencies currency;
 
+    public CurrencyRate(BigDecimal sell, BigDecimal buy, Currencies currency) {
+        setSell(sell);
+        setBuy(buy);
+        setCurrency(currency);
+    }
+
     public BigDecimal getSell() {
         return sell;
     }

@@ -1,7 +1,7 @@
 package parser;
 
 public enum Banks {
-    PRIVATE,
+    PRIVAT,
     MONO,
     NBU
 }

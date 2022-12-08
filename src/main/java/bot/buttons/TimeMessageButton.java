@@ -67,7 +67,7 @@ public class TimeMessageButton {
                 .build();
         KeyboardButton keyboardButton12 = KeyboardButton
                 .builder()
-                .text("Час сповіщення")
+                .text("На головне меню")
                 .build();
 
         KeyboardRow row1 = new KeyboardRow(List.of(keyboardButton1, keyboardButton2, keyboardButton3));

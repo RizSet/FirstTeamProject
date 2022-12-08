@@ -4,22 +4,25 @@ package bot;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.buttons.TimeMessageButton;
-import bot.buttons.TimeMessageButtons.NineButton;
+import bot.buttons.TimeMessageLogic.ChooseTime;
+import bot.buttons.TimeMessageLogic.Timer;
 import bot.command.StartCommand;
 import fsm.Option;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
+    private Timer timer = new Timer();
+
+
     private static HashMap<String, Option> clients = new HashMap<>();
 
     public HashMap<String, Option> getClients() {
@@ -32,7 +35,10 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
 
     public CurrencyBot() {
         register(new StartCommand());
+        timer.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
+
+
 
     @Override
     public void processNonCommandUpdate(Update update) {
@@ -42,14 +48,6 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
             clients.put(chatId, new Option());
         } else {
             optionCurrentChat = clients.get(chatId);
-        }
-
-        if (update.hasMessage()) {
-            try {
-                execute(NineButton.setNineTimeNotation(chatId));
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         try {
@@ -76,10 +74,41 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    @Override
+    public void onUpdatesReceived(List<Update> updates) {
+        for (Update item : updates) {
+            String chatId = String.valueOf(item.getMessage().getChatId());
+            try {
+                if (item.hasMessage()) {
+                    if (item.getMessage().getText().equals("На головне меню")) {
+                        //menu buttoon
+                        break;
+                    }
+                    execute(ChooseTime.setTimeNotation(chatId, item.getMessage().getText(), timer));
+                    if(timer.isNotationOn()) {
+                        timer.scheduledExecutorService.scheduleAtFixedRate(
+                                () -> {
+                                    try {
+                                        execute(GetInfoBotton.getInfoMessage(chatId));
+                                    } catch (TelegramApiException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                },
+                                5,
+                                5,
+                                TimeUnit.SECONDS);
+                    } else {
+                        timer.scheduledExecutorService.shutdown();
+                    }
+                }
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
 
+        }
+    }
 
     @Override
     public String getBotUsername() {

@@ -1,7 +1,6 @@
 package parser.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class CurrencyRate {
     BigDecimal sell;
@@ -9,7 +8,7 @@ public class CurrencyRate {
     Currencies currency;
 
     public CurrencyRate(BigDecimal sell, BigDecimal buy, Currencies currency) {
-        this.sell =sell;
+        this.sell = sell;
         this.buy = buy;
         this.currency = currency;
     }

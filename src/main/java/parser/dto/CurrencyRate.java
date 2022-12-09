@@ -36,4 +36,13 @@ public class CurrencyRate {
     public void setCurrency(Currencies currency) {
         this.currency = currency;
     }
+
+    @Override
+    public String toString() {
+        return "CurrencyRate{" +
+                "sell=" + sell +
+                ", buy=" + buy +
+                ", currency=" + currency +
+                '}';
+    }
 }

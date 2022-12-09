@@ -17,10 +17,10 @@ public class GetInfoBotton {
         message.setText(messageCurrency.printMesssage());
         message.setChatId(chatId);
 
-        List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію по курсу валют")
+        List<InlineKeyboardButton> rowButton1 = Stream.of("РћС‚СЂРёРјР°С‚Рё С–РЅС„РѕСЂРјР°С†С–СЋ РїРѕ РєСѓСЂСЃСѓ РІР°Р»СЋС‚")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of( "Налаштування")
+        List<InlineKeyboardButton> rowButton2 = Stream.of( "РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

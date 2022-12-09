@@ -19,7 +19,7 @@ import static java.lang.StrictMath.toIntExact;
 public class AmountOfSingsAfterCommaButton {
 
     public static SendMessage getMessage(String chatId) {
-        String text = "Скільки знаків після коми ви бажаєте бачити після коми?";
+        String text = "РЎРєС–Р»СЊРєРё Р·РЅР°РєС–РІ РїС–СЃР»СЏ РєРѕРјРё РІРё Р±Р°Р¶Р°С”С‚Рµ Р±Р°С‡РёС‚Рё РїС–СЃР»СЏ РєРѕРјРё?";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
@@ -38,7 +38,7 @@ public class AmountOfSingsAfterCommaButton {
         List<InlineKeyboardButton> rowButton3 = Stream.of("4")
                 .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(4, chatId)).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton4 = Stream.of("До головного меню")
+        List<InlineKeyboardButton> rowButton4 = Stream.of("Р”Рѕ РіРѕР»РѕРІРЅРѕРіРѕ РјРµРЅСЋ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

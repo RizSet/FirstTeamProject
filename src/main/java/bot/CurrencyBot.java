@@ -1,5 +1,6 @@
 package bot;
 
+import bot.buttons.AmountOfSingsAfterCommaButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
@@ -13,11 +14,11 @@ import java.util.HashMap;
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private static HashMap<String, Option> clients = new HashMap<>();
 
-    public HashMap<String, Option> getClients() {
+    public static HashMap<String, Option> getClients() {
         return clients;
     }
 
-    public void setClients(HashMap<String, Option> clients) {
+    public static void setClients(HashMap<String, Option> clients) {
         CurrencyBot.clients = clients;
     }
 
@@ -43,6 +44,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     execute(PropertiesButton.getMessage(chatId));
                     break;
                 case ("Кількість знаків після коми"):
+                    execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
                 case ("Валюта"):
                     break;
@@ -52,6 +54,15 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("Час отримання повідомлень"):
                     break;
                 case ("До головного меню"):
+                    break;
+                case ("2"):
+                    execute(AmountOfSingsAfterCommaButton.TwoButton.setSingsAfterComma(update));
+                    break;
+                case ("3"):
+                    execute(AmountOfSingsAfterCommaButton.ThreeButton.setSingsAfterComma(update));
+                    break;
+                case ("4"):
+                    execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
                     break;
             }
         } catch (TelegramApiException e) {

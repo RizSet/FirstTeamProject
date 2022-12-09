@@ -1,5 +1,6 @@
 package bot.buttons;
 
+import fsm.Option;
 import message.MessageCurrency;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -11,10 +12,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GetInfoBotton {
-    public static SendMessage getInfoMessage(String chatId){
+    public static SendMessage getInfoMessage(String chatId, Option option){
         MessageCurrency messageCurrency = new MessageCurrency();
         SendMessage message = new SendMessage();
-        message.setText(messageCurrency.printMesssage());
+        message.setText(messageCurrency.printMesssage(option));
         message.setChatId(chatId);
 
         List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію по курсу валют")

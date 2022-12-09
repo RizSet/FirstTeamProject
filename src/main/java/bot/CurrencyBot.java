@@ -1,6 +1,6 @@
 package bot;
 
-
+import bot.buttons.AmountOfSingsAfterCommaButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.buttons.TimeMessageButton;
@@ -16,7 +16,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
@@ -25,11 +24,11 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
 
     private static HashMap<String, Option> clients = new HashMap<>();
 
-    public HashMap<String, Option> getClients() {
+    public static HashMap<String, Option> getClients() {
         return clients;
     }
 
-    public void setClients(HashMap<String, Option> clients) {
+    public static void setClients(HashMap<String, Option> clients) {
         CurrencyBot.clients = clients;
     }
 
@@ -43,7 +42,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
     @Override
     public void processNonCommandUpdate(Update update) {
         String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
-        Option optionCurrentChat;
+        Option optionCurrentChat = new Option();
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
         } else {
@@ -53,12 +52,13 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
-                    execute(GetInfoBotton.getInfoMessage(chatId));
+                    execute(GetInfoBotton.getInfoMessage(chatId, optionCurrentChat));
                     break;
                 case ("Налаштування"):
                     execute(PropertiesButton.getMessage(chatId));
                     break;
                 case ("Кількість знаків після коми"):
+                    execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
                 case ("Валюта"):
                     break;
@@ -70,45 +70,21 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     break;
                 case ("До головного меню"):
                     break;
+                case ("2"):
+                    execute(AmountOfSingsAfterCommaButton.TwoButton.setSingsAfterComma(update));
+                    break;
+                case ("3"):
+                    execute(AmountOfSingsAfterCommaButton.ThreeButton.setSingsAfterComma(update));
+                    break;
+                case ("4"):
+                    execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
+                    break;
             }
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public void onUpdatesReceived(List<Update> updates) {
-        for (Update item : updates) {
-            String chatId = String.valueOf(item.getMessage().getChatId());
-            try {
-                if (item.hasMessage()) {
-                    if (item.getMessage().getText().equals("На головне меню")) {
-                        //menu buttoon
-                        break;
-                    }
-                    execute(ChooseTime.setTimeNotation(chatId, item.getMessage().getText(), timer));
-                    if(timer.isNotationOn()) {
-                        timer.scheduledExecutorService.scheduleAtFixedRate(
-                                () -> {
-                                    try {
-                                        execute(GetInfoBotton.getInfoMessage(chatId));
-                                    } catch (TelegramApiException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                },
-                                5,
-                                5,
-                                TimeUnit.SECONDS);
-                    } else {
-                        timer.scheduledExecutorService.shutdown();
-                    }
-                }
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
 
     @Override
     public String getBotUsername() {

@@ -55,32 +55,35 @@ public class AmountOfSingsAfterCommaButton {
         return CurrencyBot.getClients().get(chatId).getSingAfterCommas() == number ? EmojiParser.parseToUnicode(":white_check_mark:") : " ";
     }
 
-    private static EditMessageReplyMarkup editMessageBuilding (int numberOfSign, Update update){
+    private static EditMessageReplyMarkup editMessageBuilding (Update update){
+        String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+        int messageId = toIntExact(update.getCallbackQuery().getMessage().getMessageId());
+        int numberOfSign = Integer.parseInt(update.getCallbackQuery().getData());
 
-        CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setSingAfterCommas(numberOfSign);
+        CurrencyBot.getClients().get(chatId).setSingAfterCommas(numberOfSign);
 
         return EditMessageReplyMarkup.builder()
-                .chatId(String.valueOf(update.getCallbackQuery().getMessage().getChatId()))
-                .messageId(toIntExact(update.getCallbackQuery().getMessage().getMessageId()))
-                .replyMarkup(createOrEditButton(String.valueOf(update.getCallbackQuery().getMessage().getChatId())))
+                .chatId(chatId)
+                .messageId(messageId)
+                .replyMarkup(createOrEditButton(chatId))
                 .build();
     }
 
     public static class TwoButton {
         public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(2, update);
+            return editMessageBuilding(update);
         }
     }
 
     public static class ThreeButton {
         public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(3, update);
+            return editMessageBuilding(update);
         }
     }
 
     public static class FourButton {
         public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(4, update);
+            return editMessageBuilding(update);
         }
     }
 }

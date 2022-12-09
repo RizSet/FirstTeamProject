@@ -17,10 +17,10 @@ public class GetInfoBotton {
         message.setText(messageCurrency.printMesssage());
         message.setChatId(chatId);
 
-        List<InlineKeyboardButton> rowButton1 = Stream.of("–û—Ç—Ä–∏–º–∞—Ç–∏ —ñ–Ω—Ñ–æ—Ä–º–∞—Ü—ñ—é –ø–æ –∫—É—Ä—Å—É –≤–∞–ª—é—Ç")
+        List<InlineKeyboardButton> rowButton1 = Stream.of("ŒÚËÏ‡ÚË ≥ÌÙÓÏ‡ˆ≥˛ ÔÓ ÍÛÒÛ ‚‡Î˛Ú")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of( "–ù–∞–ª–∞—à—Ç—É–≤–∞–Ω–Ω—è")
+        List<InlineKeyboardButton> rowButton2 = Stream.of( "Õ‡Î‡¯ÚÛ‚‡ÌÌˇ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

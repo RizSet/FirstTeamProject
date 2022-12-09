@@ -1,6 +1,5 @@
 package bot;
 
-
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;

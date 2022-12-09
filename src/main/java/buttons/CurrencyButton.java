@@ -98,6 +98,7 @@ public class CurrencyButton {
                 markButton("USD");
             }
 
+            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())
@@ -126,6 +127,7 @@ public class CurrencyButton {
                 markButton("EUR");
             }
 
+            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())

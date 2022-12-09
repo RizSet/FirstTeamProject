@@ -1,6 +1,6 @@
 package bot;
 
-
+import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
 import fsm.Option;
@@ -37,6 +37,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
+                    execute(GetInfoBotton.getInfoMessage(chatId));
                     break;
                 case ("Налаштування"):
                     execute(PropertiesButton.getMessage(chatId));

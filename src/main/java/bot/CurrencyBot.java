@@ -1,6 +1,7 @@
 package bot;
 
 import bot.buttons.AmountOfSingsAfterCommaButton;
+import bot.buttons.CurrencyButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
@@ -46,7 +47,14 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("Кількість знаків після коми"):
                     execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
-                case ("Валюта"):
+                case ("Валюти"):
+                    execute(CurrencyButton.getMessage(chatId));
+                    break;
+                case ("USD"):
+                    execute(CurrencyButton.usdButton.setCurrency(update));
+                    break;
+                case ("EUR"):
+                    execute(CurrencyButton.eurButton.setCurrency(update));
                     break;
                 case ("Банк"):
 //                BunkButton.getMessage();

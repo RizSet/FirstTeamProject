@@ -1,12 +1,8 @@
 package fsm;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class returnButton  {
+public class ReturnButton  {
     public static SendMessage getMessage (String chatId){
         String text = "Головне меню";
         SendMessage message = new SendMessage();
@@ -22,10 +18,10 @@ public class returnButton  {
         message.setChatId(chatId);
 
 
-        List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію про курс")
+        List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію по курсу валют")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of("Опції")
+        List<InlineKeyboardButton> rowButton2 = Stream.of("Налаштування")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

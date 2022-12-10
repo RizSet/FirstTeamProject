@@ -1,23 +1,21 @@
 package bot;
 
-
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.buttons.TimeMessageButton;
-import bot.buttons.TimeMessageLogic.ChooseTime;
 import bot.buttons.TimeMessageLogic.Timer;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ScheduledFuture;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private Timer timer = new Timer();
@@ -35,21 +33,84 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
 
     public CurrencyBot() {
         register(new StartCommand());
-        timer.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
-
 
 
     @Override
     public void processNonCommandUpdate(Update update) {
-        String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+        String chatId;
+        if (update.hasMessage()) {
+            chatId = String.valueOf(update.getMessage().getChatId());
+            try {
+                switch (update.getMessage().getText()) {
+                    case ("9"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(9);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("10"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(10);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("11"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(11);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("12"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(12);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("13"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(13);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("14"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(14);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("15"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(15);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("16"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(16);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("17"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(17);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("18"):
+                        execute(TimeMessageButton.setSchedule(update));
+                        timer.setRemaindTime(18);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        break;
+                    case ("Вимкнути повідомлення"):
+                        execute(TimeMessageButton.shutDownSchedule(update));
+                        cancelerSheduler();
+                        break;
+                    case ("На головне меню"):
+                        break;
+                }
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
         Option optionCurrentChat = new Option();
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
         } else {
             optionCurrentChat = clients.get(chatId);
         }
-
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
@@ -63,7 +124,6 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("Валюта"):
                     break;
                 case ("Банк"):
-//                BunkButton.getMessage();
                     break;
                 case ("Час сповіщення"):
                     execute(TimeMessageButton.getMessageCreateNotation(chatId));
@@ -77,48 +137,6 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
     }
 
     @Override
-    public void onUpdatesReceived(List<Update> updates) {
-
-        for (Update item : updates) {
-            String chatId = String.valueOf(item.getMessage().getChatId());
-            Option optionCurrentChat = new Option();
-            if (!clients.containsKey(chatId)) {
-                clients.put(chatId, new Option());
-            } else {
-                optionCurrentChat = clients.get(chatId);
-            }
-            try {
-                if (item.hasMessage()) {
-                    if (item.getMessage().getText().equals("На головне меню")) {
-                        //menu buttoon
-                        break;
-                    }
-                    execute(ChooseTime.setTimeNotation(chatId, item.getMessage().getText(), timer));
-                    if(!timer.isNotationOn()) {
-                        Option finalOptionCurrentChat = optionCurrentChat;
-                        timer.scheduledExecutorService.scheduleAtFixedRate(
-                                () -> {
-                                    try {
-                                        execute(GetInfoBotton.getInfoMessage(chatId, finalOptionCurrentChat));
-                                    } catch (TelegramApiException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                },
-                                5,
-                                5,
-                                TimeUnit.SECONDS);
-                    } else {
-                        timer.scheduledExecutorService.shutdown();
-                    }
-                }
-            } catch (TelegramApiException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
-
-    @Override
     public String getBotUsername() {
         return BotConstants.BOT_NAME;
     }
@@ -127,4 +145,36 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
     public String getBotToken() {
         return BotConstants.BOT_TOKEN;
     }
+
+    static ScheduledFuture<?> messageNotation;
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+
+    public void setTimeScheduler(String chatId, int timeToRemaind) {
+
+        Option optionCurrentChat = new Option();
+        if (!clients.containsKey(chatId)) {
+            clients.put(chatId, new Option());
+        } else {
+            optionCurrentChat = clients.get(chatId);
+        }
+        Option finalOptionCurrentChat = optionCurrentChat;
+        Runnable message = () -> {
+            try {
+                execute(GetInfoBotton.getInfoMessage(chatId, finalOptionCurrentChat));
+            } catch (TelegramApiException e) {
+                throw new RuntimeException(e);
+            }
+        };
+        if (messageNotation != null) {
+            cancelerSheduler();
+        }
+        messageNotation = scheduler.scheduleAtFixedRate(message, 5, 5, SECONDS);
+    }
+
+    public static void cancelerSheduler() {
+        messageNotation.cancel(false);
+        messageNotation = null;
+    }
+
 }

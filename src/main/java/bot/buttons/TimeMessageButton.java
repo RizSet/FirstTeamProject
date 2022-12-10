@@ -1,79 +1,34 @@
 package bot.buttons;
 
+import bot.CurrencyBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TimeMessageButton {
-    public static SendMessage getMessageCreateNotation(String chatId){
+    private static HashMap<String, KeyboardButton> keyboard = new HashMap<>();
+
+    public static SendMessage getMessageCreateNotation(String chatId) {
         String text = "Виберіть час сповіщення";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
 
+        for (int i = 9; i <= 18; i++) {
+            keyboard.put(String.valueOf(i), KeyboardButton.builder().text(String.valueOf(i)).build());
+        }
+        keyboard.put("Вимкнути повідомлення", KeyboardButton.builder().text("Вимкнути повідомлення").build());
+        keyboard.put("На головне меню", KeyboardButton.builder().text("На головне меню").build());
 
-        KeyboardButton keyboardButton1 = KeyboardButton
-                .builder()
-                .text("9")
-                .build();
-        KeyboardButton keyboardButton2 = KeyboardButton
-                .builder()
-                .text("10")
-                .build();
-        KeyboardButton keyboardButton3 = KeyboardButton
-                .builder()
-                .text("11")
-                .build();
-        KeyboardButton keyboardButton4 = KeyboardButton
-                .builder()
-                .text("12")
-                .build();
-        KeyboardButton keyboardButton5 = KeyboardButton
-                .builder()
-                .text("13")
-                .build();
-        KeyboardButton keyboardButton6 = KeyboardButton
-                .builder()
-                .text("14")
-                .build();
-        KeyboardButton keyboardButton7 = KeyboardButton
-                .builder()
-                .text("15")
-                .build();
-        KeyboardButton keyboardButton8 = KeyboardButton
-                .builder()
-                .text("16")
-                .build();
-        KeyboardButton keyboardButton9 = KeyboardButton
-                .builder()
-                .text("17")
-                .build();
-        KeyboardButton keyboardButton10 = KeyboardButton
-                .builder()
-                .text("18")
-                .build();
-        KeyboardButton keyboardButton11 = KeyboardButton
-                .builder()
-                .text("Вимкнути повідомлення")
-                .build();
-        KeyboardButton keyboardButton12 = KeyboardButton
-                .builder()
-                .text("На головне меню")
-                .build();
-
-        KeyboardRow row1 = new KeyboardRow(List.of(keyboardButton1, keyboardButton2, keyboardButton3));
-        KeyboardRow row2 = new KeyboardRow(List.of(keyboardButton4, keyboardButton5, keyboardButton6));
-        KeyboardRow row3 = new KeyboardRow(List.of(keyboardButton7, keyboardButton8, keyboardButton9));
-        KeyboardRow row4 = new KeyboardRow(List.of(keyboardButton10, keyboardButton11, keyboardButton12));
+        KeyboardRow row1 = new KeyboardRow(List.of(keyboard.get("9"), keyboard.get("10"), keyboard.get("11")));
+        KeyboardRow row2 = new KeyboardRow(List.of(keyboard.get("12"), keyboard.get("13"), keyboard.get("14")));
+        KeyboardRow row3 = new KeyboardRow(List.of(keyboard.get("15"), keyboard.get("16"), keyboard.get("17")));
+        KeyboardRow row4 = new KeyboardRow(List.of(keyboard.get("18"), keyboard.get("Вимкнути повідомлення"), keyboard.get("На головне меню")));
 
         message.setReplyMarkup(ReplyKeyboardMarkup
                 .builder()
@@ -82,6 +37,26 @@ public class TimeMessageButton {
                 .keyboardRow(row3)
                 .keyboardRow(row4)
                 .build());
+
+        return message;
+    }
+
+    public static SendMessage setSchedule(Update update) {
+        String text = "Час сповіщення встановленно!";
+        SendMessage message = new SendMessage();
+        message.setText(text);
+        message.setChatId(update.getMessage().getChatId());
+
+
+        return message;
+    }
+
+    public static SendMessage shutDownSchedule(Update update) {
+        String text = "Ви відмініли повіщення!";
+        SendMessage message = new SendMessage();
+        message.setText(text);
+        message.setChatId(update.getMessage().getChatId());
+
 
         return message;
     }

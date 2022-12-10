@@ -5,6 +5,9 @@ import parser.dto.Currencies;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Option {
     private int singAfterCommas = 2;
@@ -30,6 +33,7 @@ public class Option {
     public Banks getChosenBank() {
         return chosenBank;
     }
+
 
     public void setChosenBank(Banks chosenBank) {
         this.chosenBank = chosenBank;

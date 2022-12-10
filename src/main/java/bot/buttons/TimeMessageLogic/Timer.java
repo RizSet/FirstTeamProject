@@ -11,11 +11,9 @@ import java.util.concurrent.ScheduledExecutorService;
 
 
 public class Timer {
-    public ScheduledExecutorService scheduledExecutorService;
     private DateFormat dateFormatNow = new SimpleDateFormat("HH:mm:ss");
     private String dateNow = dateFormatNow.format(new Date());
     private int remaindTime = 15;
-    private boolean isNotationOn = false;
 
     private int timeToSec(){
         String[] TimeArr = dateNow.split(":");
@@ -62,13 +60,6 @@ public class Timer {
         this.remaindTime = remaindTime;
     }
 
-    public boolean isNotationOn() {
-        return isNotationOn;
-    }
-
-    public void setNotationOn(boolean notationOn) {
-        this.isNotationOn = notationOn;
-    }
 
     public DateFormat getDateFormatNow() {
         return dateFormatNow;

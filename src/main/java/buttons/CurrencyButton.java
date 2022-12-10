@@ -2,8 +2,6 @@ package buttons;
 
 import bot.CurrencyBot;
 import com.vdurmont.emoji.EmojiParser;
-import fsm.Option;
-import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -98,7 +96,6 @@ public class CurrencyButton {
                 markButton("USD");
             }
 
-            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())
@@ -127,7 +124,6 @@ public class CurrencyButton {
                 markButton("EUR");
             }
 
-            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())

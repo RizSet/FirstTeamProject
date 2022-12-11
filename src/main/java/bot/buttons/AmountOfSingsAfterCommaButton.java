@@ -23,7 +23,7 @@ public class AmountOfSingsAfterCommaButton {
     static List<InlineKeyboardButton> rowButton4;
 
     public static SendMessage getMessage(String chatId) {
-        String text = "Ð¡ÐºÑ–Ð»ÑŒÐºÐ¸ Ð·Ð½Ð°ÐºÑ–Ð² Ð¿Ñ–ÑÐ»Ñ ÐºÐ¾Ð¼Ð¸ Ð²Ð¸ Ð±Ð°Ð¶Ð°Ñ”Ñ‚Ðµ Ð±Ð°Ñ‡Ð¸Ñ‚Ð¸ Ð¿Ñ–ÑÐ»Ñ ÐºÐ¾Ð¼Ð¸?";
+        String text = "Ñê³ëüêè çíàê³â ï³ñëÿ êîìè âè áàæàºòå áà÷èòè ï³ñëÿ êîìè?";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
@@ -37,7 +37,7 @@ public class AmountOfSingsAfterCommaButton {
         rowButton3 = Stream.of("4")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        rowButton4 = Stream.of("Ð”Ð¾ Ð³Ð¾Ð»Ð¾Ð²Ð½Ð¾Ð³Ð¾ Ð¼ÐµÐ½ÑŽ")
+        rowButton4 = Stream.of("Äî ãîëîâíîãî ìåíþ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

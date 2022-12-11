@@ -23,7 +23,7 @@ public class CurrencyButton {
     static List<InlineKeyboardButton> rowButton3;
 
     public static SendMessage getMessage(String chatId){
-        String text  = "Ð—Ð° ÐºÑƒÑ€ÑÐ¾Ð¼ ÑÐºÐ¸Ñ… Ð²Ð°Ð»ÑŽÑ‚ Ð²Ð¸ Ð±Ð°Ð¶Ð°Ñ”Ñ‚Ðµ ÑÑ‚ÐµÐ¶Ð¸Ñ‚Ð¸?";
+        String text  = "Çà êóðñîì ÿêèõ âàëþò âè áàæàºòå ñòåæèòè?";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
@@ -34,7 +34,7 @@ public class CurrencyButton {
         rowButton2 = Stream.of("EUR")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        rowButton3 = Stream.of("Ð”Ð¾ Ð³Ð¾Ð»Ð¾Ð²Ð½Ð¾Ð³Ð¾ Ð¼ÐµÐ½ÑŽ")
+        rowButton3 = Stream.of("Äî ãîëîâíîãî ìåíþ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 
@@ -96,6 +96,7 @@ public class CurrencyButton {
                 markButton("USD");
             }
 
+            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())
@@ -124,6 +125,7 @@ public class CurrencyButton {
                 markButton("EUR");
             }
 
+            CurrencyBot.getClients().get(String.valueOf(update.getCallbackQuery().getMessage().getChatId())).setCurrencies(currencies);
             return EditMessageReplyMarkup.builder()
                     .chatId(newMessage.getChatId())
                     .messageId(newMessage.getMessageId())

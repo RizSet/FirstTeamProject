@@ -7,18 +7,19 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageRe
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import parser.dto.Currencies;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static java.lang.StrictMath.toIntExact;
 
-public class AmountOfSingsAfterCommaButton {
+public class CurrencyButton {
+
 
     public static SendMessage getMessage(String chatId) {
-        String text = "Скільки знаків після коми ви бажаєте бачити після коми?";
+        String text = "Курс якої валюти ви хочете дізнатися?";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
@@ -28,14 +29,11 @@ public class AmountOfSingsAfterCommaButton {
     }
 
     private static InlineKeyboardMarkup createOrEditButton (String chatId){
-        List<InlineKeyboardButton> rowButton1 = Stream.of("2")
-                .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(2, chatId)).callbackData(it).build())
+        List<InlineKeyboardButton> rowButton1 = Stream.of("USD")
+                .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(Currencies.USD, chatId)).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of("3")
-                .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(3, chatId)).callbackData(it).build())
-                .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton3 = Stream.of("4")
-                .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(4, chatId)).callbackData(it).build())
+        List<InlineKeyboardButton> rowButton2 = Stream.of("EUR")
+                .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(Currencies.EUR, chatId)).callbackData(it).build())
                 .collect(Collectors.toList());
         List<InlineKeyboardButton> rowButton4 = Stream.of("Головне меню")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
@@ -45,21 +43,24 @@ public class AmountOfSingsAfterCommaButton {
                 .builder()
                 .keyboard(Collections.singleton(rowButton1))
                 .keyboard(Collections.singleton(rowButton2))
-                .keyboard(Collections.singleton(rowButton3))
                 .keyboard(Collections.singleton(rowButton4))
                 .build();
     }
 
-    private static String markButton(int number, String chatId) {
-        return CurrencyBot.getClients().get(chatId).getSingAfterCommas() == number ? EmojiParser.parseToUnicode(":white_check_mark:") : " ";
+    private static String markButton(Currencies  currency, String chatId) {
+        return CurrencyBot.getClients().get(chatId).getCurrencies().contains(currency) ? EmojiParser.parseToUnicode(":white_check_mark:") : " ";
     }
 
     private static EditMessageReplyMarkup getEditMessage(Update update){
         String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
         int messageId = toIntExact(update.getCallbackQuery().getMessage().getMessageId());
-        int numberOfSign = Integer.parseInt(update.getCallbackQuery().getData());
+        Currencies currency = Currencies.valueOf(update.getCallbackQuery().getData());
 
-        CurrencyBot.getClients().get(chatId).setSingAfterCommas(numberOfSign);
+        if (CurrencyBot.getClients().get(chatId).getCurrencies().contains(currency)){
+            CurrencyBot.getClients().get(chatId).getCurrencies().remove(currency);
+        } else {
+            CurrencyBot.getClients().get(chatId).getCurrencies().add(currency);
+        }
 
         return EditMessageReplyMarkup.builder()
                 .chatId(chatId)
@@ -68,10 +69,9 @@ public class AmountOfSingsAfterCommaButton {
                 .build();
     }
 
-    public static class NumberOfSignButton {
-        public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
+    public static class CurrenciesButton {
+        public static EditMessageReplyMarkup setCurrencies(Update update) {
             return getEditMessage(update);
         }
     }
-
 }

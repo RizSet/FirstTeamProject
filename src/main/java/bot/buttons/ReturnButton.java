@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/main/java/bot/button/ReturnButton.java
-package bot.button;
-=======
 package bot.buttons;
-
->>>>>>> origin/main:src/main/java/bot/buttons/ReturnButton.java
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -26,14 +21,7 @@ public class ReturnButton  {
         List<InlineKeyboardButton> rowButton1 = Stream.of("Отримати інформацію по курсу валют")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-<<<<<<< HEAD:src/main/java/bot/button/ReturnButton.java
-        List<InlineKeyboardButton> rowButton2 = Stream.of("Кількість знаків після коми")
-                .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
-                .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton3 = Stream.of("Налаштування")
-=======
         List<InlineKeyboardButton> rowButton2 = Stream.of("Налаштування")
->>>>>>> origin/main:src/main/java/bot/buttons/ReturnButton.java
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 
@@ -42,7 +30,6 @@ public class ReturnButton  {
                 .builder()
                 .keyboard(Collections.singleton(rowButton1))
                 .keyboard(Collections.singleton(rowButton2))
-                .keyboard(Collections.singleton(rowButton3))
                 .build();
 
         message.setReplyMarkup(keyboard);

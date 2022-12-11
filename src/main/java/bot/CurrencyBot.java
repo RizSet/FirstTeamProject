@@ -1,11 +1,9 @@
 package bot;
 
 import bot.buttons.AmountOfSingsAfterCommaButton;
+import bot.buttons.BankButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
-import bot.buttons.TimeMessageButton;
-import bot.buttons.TimeMessageLogic.ChooseTime;
-import bot.buttons.TimeMessageLogic.Timer;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -19,9 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
-    private Timer timer = new Timer();
-
-
     private static HashMap<String, Option> clients = new HashMap<>();
 
     public static HashMap<String, Option> getClients() {
@@ -34,21 +29,16 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
 
     public CurrencyBot() {
         register(new StartCommand());
-        timer.scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
-
-
 
     @Override
     public void processNonCommandUpdate(Update update) {
         String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
-        Option optionCurrentChat = new Option();
+        Option optionCurrentChat;
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
-        } else {
-            optionCurrentChat = clients.get(chatId);
         }
-
+        optionCurrentChat = clients.get(chatId);
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
@@ -62,22 +52,33 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     break;
                 case ("Валюта"):
                     break;
-                case ("Банк"):
-//                BunkButton.getMessage();
+                case ("Р‘Р°РЅРє Р· СЏРєРѕРіРѕ Р±СѓРґРµ Р±СЂР°С‚РёСЃСЊ РєСѓСЂСЃ"):
+                    execute(BankButton.getMessage(chatId,optionCurrentChat));
+                    break;
+                case ("РџСЂРёРІР°С‚Р‘Р°РЅРє"):
+                    optionCurrentChat.setChosenBank(Banks.PRIVAT);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("РќР‘РЈ"):
+                    optionCurrentChat.setChosenBank(Banks.NBU);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("РњРѕРЅРѕР‘Р°РЅРє"):
+                    optionCurrentChat.setChosenBank(Banks.MONO);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
                     break;
                 case ("Час сповіщення"):
-                    execute(TimeMessageButton.getMessageCreateNotation(chatId));
                     break;
                 case ("До головного меню"):
                     break;
                 case ("2"):
-                    execute(AmountOfSingsAfterCommaButton.TwoButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
                 case ("3"):
-                    execute(AmountOfSingsAfterCommaButton.ThreeButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
                 case ("4"):
-                    execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
             }
         } catch (TelegramApiException e) {

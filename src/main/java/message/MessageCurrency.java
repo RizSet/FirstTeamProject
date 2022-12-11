@@ -18,7 +18,7 @@ public class MessageCurrency {
         if (option.getChosenBank().equals(Banks.MONO)) {
             result += "Курс в Monobank:\n";
             result += printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas());
-        } else if(option.getChosenBank().equals(Banks.PRIVATE)) {
+        } else if(option.getChosenBank().equals(Banks.PRIVAT)) {
             result += "Курс в PrivatBank:\n";
             result += printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas());
         } else {

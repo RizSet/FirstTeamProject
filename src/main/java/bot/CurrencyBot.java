@@ -1,6 +1,7 @@
 package bot;
 
 import bot.buttons.AmountOfSingsAfterCommaButton;
+import bot.buttons.BankButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
@@ -8,6 +9,7 @@ import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import parser.Banks;
 
 import java.util.HashMap;
 
@@ -32,9 +34,8 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         Option optionCurrentChat;
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
-        } else {
-            optionCurrentChat = clients.get(chatId);
         }
+        optionCurrentChat = clients.get(chatId);
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
@@ -48,7 +49,20 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     break;
                 case ("Валюта"):
                     break;
-                case ("Банк"):
+                case ("Банк з якого буде братись курс"):
+                    execute(BankButton.getMessage(chatId,optionCurrentChat));
+                    break;
+                case ("ПриватБанк"):
+                    optionCurrentChat.setChosenBank(Banks.PRIVAT);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("НБУ"):
+                    optionCurrentChat.setChosenBank(Banks.NBU);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("МоноБанк"):
+                    optionCurrentChat.setChosenBank(Banks.MONO);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
                     break;
                 case ("Час отримання повідомлень"):
                     break;

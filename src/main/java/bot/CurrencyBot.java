@@ -49,7 +49,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     break;
                 case ("Валюта"):
                     break;
-                case ("Банк"):
+                case ("Банк з якого буде братись курс"):
                     execute(BankButton.getMessage(chatId,optionCurrentChat));
                     break;
                 case ("ПриватБанк"):

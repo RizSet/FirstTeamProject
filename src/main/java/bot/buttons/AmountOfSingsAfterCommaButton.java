@@ -37,7 +37,7 @@ public class AmountOfSingsAfterCommaButton {
         List<InlineKeyboardButton> rowButton3 = Stream.of("4")
                 .map(it -> InlineKeyboardButton.builder().text(it + " " + markButton(4, chatId)).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton4 = Stream.of("До головного меню")
+        List<InlineKeyboardButton> rowButton4 = Stream.of("Головне меню")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

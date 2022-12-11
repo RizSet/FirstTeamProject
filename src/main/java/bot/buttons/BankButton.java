@@ -47,6 +47,9 @@ public class BankButton {
         List<InlineKeyboardButton> rowButton3 = Stream.of("НБУ")
                 .map(it -> InlineKeyboardButton.builder().text(it + " " + (option.getChosenBank().name().equals("NBU") ? "\u2705" : " ")).callbackData(it).build())
                 .collect(Collectors.toList());
+        List<InlineKeyboardButton> rowButton5 = Stream.of( "Головне меню")
+                .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
+                .collect(Collectors.toList());
         return InlineKeyboardMarkup
                 .builder()
                 .keyboard(Collections.singleton(rowButton1))

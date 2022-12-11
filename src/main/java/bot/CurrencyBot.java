@@ -10,6 +10,7 @@ import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingC
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import parser.Banks;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,16 +42,16 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         optionCurrentChat = clients.get(chatId);
         try {
             switch (update.getCallbackQuery().getData()) {
-                case ("Отримати інформацію по курсу валют"):
+                case ("РћС‚СЂРёРјР°С‚Рё С–РЅС„РѕСЂРјР°С†С–СЋ РїРѕ РєСѓСЂСЃСѓ РІР°Р»СЋС‚"):
                     execute(GetInfoBotton.getInfoMessage(chatId, optionCurrentChat));
                     break;
-                case ("Налаштування"):
+                case ("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"):
                     execute(PropertiesButton.getMessage(chatId));
                     break;
-                case ("Кількість знаків після коми"):
+                case ("РљС–Р»СЊРєС–СЃС‚СЊ Р·РЅР°РєС–РІ РїС–СЃР»СЏ РєРѕРјРё"):
                     execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
-                case ("Валюта"):
+                case ("Р’Р°Р»СЋС‚Р°"):
                     break;
                 case ("Р‘Р°РЅРє Р· СЏРєРѕРіРѕ Р±СѓРґРµ Р±СЂР°С‚РёСЃСЊ РєСѓСЂСЃ"):
                     execute(BankButton.getMessage(chatId,optionCurrentChat));
@@ -67,9 +68,9 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     optionCurrentChat.setChosenBank(Banks.MONO);
                     execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
                     break;
-                case ("Час сповіщення"):
+                case ("Р§Р°СЃ СЃРїРѕРІС–С‰РµРЅРЅСЏ"):
                     break;
-                case ("До головного меню"):
+                case ("Р“РѕР»РѕРІРЅРµ РјРµРЅСЋ"):
                     break;
                 case ("2"):
                     execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));

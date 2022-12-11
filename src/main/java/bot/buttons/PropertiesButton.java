@@ -16,24 +16,24 @@ import java.util.stream.Stream;
 
 public class PropertiesButton  {
     public static SendMessage getMessage (String chatId){
-        String text = "Тут ви можете налаштувати сповіщення так як вам заманеться!";
+        String text = "РўСѓС‚ РІРё РјРѕР¶РµС‚Рµ РЅР°Р»Р°С€С‚СѓРІР°С‚Рё СЃРїРѕРІС–С‰РµРЅРЅСЏ С‚Р°Рє СЏРє РІР°Рј Р·Р°РјР°РЅРµС‚СЊСЃСЏ!";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
 
-        List<InlineKeyboardButton> rowButton1 = Stream.of("Кількість знаків після коми")
+        List<InlineKeyboardButton> rowButton1 = Stream.of("РљС–Р»СЊРєС–СЃС‚СЊ Р·РЅР°РєС–РІ РїС–СЃР»СЏ РєРѕРјРё")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of( "Банк з якого буде братись курс")
+        List<InlineKeyboardButton> rowButton2 = Stream.of( "Р‘Р°РЅРє Р· СЏРєРѕРіРѕ Р±СѓРґРµ Р±СЂР°С‚РёСЃСЊ РєСѓСЂСЃ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton3 = Stream.of( "Валюти")
+        List<InlineKeyboardButton> rowButton3 = Stream.of( "Р’Р°Р»СЋС‚Рё")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton4 = Stream.of( "Час сповіщення")
+        List<InlineKeyboardButton> rowButton4 = Stream.of( "Р§Р°СЃ СЃРїРѕРІС–С‰РµРЅРЅСЏ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton5 = Stream.of( "На головне меню")
+        List<InlineKeyboardButton> rowButton5 = Stream.of( "Р“РѕР»РѕРІРЅРµ РјРµРЅСЋ")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

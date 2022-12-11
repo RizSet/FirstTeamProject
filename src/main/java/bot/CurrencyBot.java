@@ -1,6 +1,8 @@
 package bot;
 
-
+import bot.buttons.AmountOfSingsAfterCommaButton;
+import bot.buttons.GetInfoBotton;
+import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
 import buttons.CurrencyButton;
 import fsm.Option;
@@ -18,7 +20,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         return clients;
     }
 
-    public void setClients(HashMap<String, Option> clients) {
+    public static void setClients(HashMap<String, Option> clients) {
         CurrencyBot.clients = clients;
     }
 
@@ -33,14 +35,16 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
         }
-        optionCurrentChat = clients.get(chatId);
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
+                    execute(GetInfoBotton.getInfoMessage(chatId));
                     break;
                 case ("Налаштування"):
+                    execute(PropertiesButton.getMessage(chatId));
                     break;
                 case ("Кількість знаків після коми"):
+                    execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
                 case ("Валюта"):
                     execute(CurrencyButton.getMessage(chatId));
@@ -51,6 +55,15 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("Час отримання повідомлень"):
                     break;
                 case ("До головного меню"):
+                    break;
+                case ("2"):
+                    execute(AmountOfSingsAfterCommaButton.TwoButton.setSingsAfterComma(update));
+                    break;
+                case ("3"):
+                    execute(AmountOfSingsAfterCommaButton.ThreeButton.setSingsAfterComma(update));
+                    break;
+                case ("4"):
+                    execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
                     break;
             }
         } catch (TelegramApiException e) {

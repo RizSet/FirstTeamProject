@@ -7,11 +7,15 @@ import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.Banks;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private static HashMap<String, Option> clients = new HashMap<>();
@@ -39,7 +43,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         try {
             switch (update.getCallbackQuery().getData()) {
                 case ("Отримати інформацію по курсу валют"):
-                    execute(GetInfoBotton.getInfoMessage(chatId));
+                    execute(GetInfoBotton.getInfoMessage(chatId, optionCurrentChat));
                     break;
                 case ("Налаштування"):
                     execute(PropertiesButton.getMessage(chatId));
@@ -64,9 +68,9 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     optionCurrentChat.setChosenBank(Banks.MONO);
                     execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
                     break;
-                case ("Час отримання повідомлень"):
+                case ("Час сповіщення"):
                     break;
-                case ("До головного меню"):
+                case ("Головне меню"):
                     break;
                 case ("2"):
                     execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));

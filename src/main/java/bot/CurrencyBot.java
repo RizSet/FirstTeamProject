@@ -8,15 +8,11 @@ import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.Banks;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private static HashMap<String, Option> clients = new HashMap<>();
@@ -56,10 +52,10 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     execute(CurrencyButton.getMessage(chatId));
                     break;
                 case ("USD"):
-                    execute(CurrencyButton.UsdButton.setCurrency(update));
+                    execute(CurrencyButton.CurrenciesButton.setCurrencies(update));
                     break;
                 case ("EUR"):
-                    execute(CurrencyButton.EurButton.setCurrency(update));
+                    execute(CurrencyButton.CurrenciesButton.setCurrencies(update));
                     break;
                 case ("Банк з якого буде братись курс"):
                     execute(BankButton.getMessage(chatId,optionCurrentChat));

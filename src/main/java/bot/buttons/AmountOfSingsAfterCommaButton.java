@@ -4,7 +4,6 @@ import bot.CurrencyBot;
 import com.vdurmont.emoji.EmojiParser;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -55,7 +54,7 @@ public class AmountOfSingsAfterCommaButton {
         return CurrencyBot.getClients().get(chatId).getSingAfterCommas() == number ? EmojiParser.parseToUnicode(":white_check_mark:") : " ";
     }
 
-    private static EditMessageReplyMarkup editMessageBuilding (Update update){
+    private static EditMessageReplyMarkup getEditMessage(Update update){
         String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
         int messageId = toIntExact(update.getCallbackQuery().getMessage().getMessageId());
         int numberOfSign = Integer.parseInt(update.getCallbackQuery().getData());
@@ -69,21 +68,10 @@ public class AmountOfSingsAfterCommaButton {
                 .build();
     }
 
-    public static class TwoButton {
+    public static class NumberOfSignButton {
         public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(update);
+            return getEditMessage(update);
         }
     }
 
-    public static class ThreeButton {
-        public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(update);
-        }
-    }
-
-    public static class FourButton {
-        public static EditMessageReplyMarkup setSingsAfterComma(Update update) {
-            return editMessageBuilding(update);
-        }
-    }
 }

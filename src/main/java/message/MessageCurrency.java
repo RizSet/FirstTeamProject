@@ -8,27 +8,26 @@ import java.math.RoundingMode;
 import java.util.List;
 
 public class MessageCurrency {
-    Option option = new Option();
     CurrencyApiService monobank = new CurrencyMonoParser();
     CurrencyApiService privatbank = new CurrencyPrivateParser();
     CurrencyApiService nbu = new CurrencyNBUParser();
 
-    public String printMesssage(){
+    public String printMesssage(Option option){
         String result = "";
         if (option.getChosenBank().equals(Banks.MONO)) {
             result += "Курс в Monobank:\n";
-            result += printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas());
-        } else if(option.getChosenBank().equals(Banks.PRIVATE)) {
+            result += printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
+        } else if(option.getChosenBank().equals(Banks.PRIVAT)) {
             result += "Курс в PrivatBank:\n";
-            result += printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas());
+            result += printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
         } else {
             result += "Курс в NBU:\n";
-            result += printCurrensy(nbu.getRate(option.getCurrencies()), option.getSingAfterCommas());
+            result += printCurrensy(nbu.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
         }
         return result;
     }
 
-    private String printCurrensy(List<CurrencyRate> currensyList, int singAfterCommas) {
+    private String printCurrensy(List<CurrencyRate> currensyList, int singAfterCommas, Option option) {
         StringBuilder currensyResult = new StringBuilder();
         if (option.getChosenBank().equals(Banks.NBU)) {
             for (CurrencyRate currensyInfo: currensyList) {

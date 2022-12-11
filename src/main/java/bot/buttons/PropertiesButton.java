@@ -33,7 +33,7 @@ public class PropertiesButton  {
         List<InlineKeyboardButton> rowButton4 = Stream.of( "Час сповіщення")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton5 = Stream.of( "На головне меню")
+        List<InlineKeyboardButton> rowButton5 = Stream.of( "Головне меню")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
 

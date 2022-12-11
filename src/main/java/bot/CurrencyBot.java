@@ -51,10 +51,10 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     execute(CurrencyButton.getMessage(chatId));
                     break;
                 case ("USD"):
-                    execute(CurrencyButton.usdButton.setCurrency(update));
+                    execute(CurrencyButton.UsdButton.setCurrency(update));
                     break;
                 case ("EUR"):
-                    execute(CurrencyButton.eurButton.setCurrency(update));
+                    execute(CurrencyButton.EurButton.setCurrency(update));
                     break;
                 case ("Банк"):
 //                BunkButton.getMessage();

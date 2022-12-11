@@ -7,7 +7,6 @@ import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import parser.Banks;

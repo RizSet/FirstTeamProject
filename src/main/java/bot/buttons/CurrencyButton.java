@@ -1,4 +1,4 @@
-package buttons;
+package bot.buttons;
 
 import bot.CurrencyBot;
 import com.vdurmont.emoji.EmojiParser;

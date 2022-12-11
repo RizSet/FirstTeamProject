@@ -4,9 +4,8 @@ import bot.buttons.AmountOfSingsAfterCommaButton;
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.command.StartCommand;
-import buttons.CurrencyButton;
+import bot.buttons.CurrencyButton;
 import fsm.Option;
-import lombok.SneakyThrows;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -64,6 +63,12 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     break;
                 case ("4"):
                     execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
+                    break;
+                case ("USD"):
+                    execute(CurrencyButton.UsdButton.setCurrencies(update));
+                    break;
+                case ("EUR"):
+                    execute(CurrencyButton.EurButton.setCurrencies(update));
                     break;
             }
         } catch (TelegramApiException e) {

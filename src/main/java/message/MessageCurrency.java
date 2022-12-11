@@ -1,6 +1,6 @@
 package message;
 
-import fsm.Option;
+import options.Option;
 import parser.*;
 import parser.dto.CurrencyRate;
 

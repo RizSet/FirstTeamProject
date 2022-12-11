@@ -1,10 +1,9 @@
-package fsm;
+package options;
 
 import parser.Banks;
 import parser.dto.Currencies;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Option {

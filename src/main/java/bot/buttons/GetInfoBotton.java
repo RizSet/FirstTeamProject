@@ -1,6 +1,6 @@
 package bot.buttons;
 
-import fsm.Option;
+import options.Option;
 import message.MessageCurrency;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

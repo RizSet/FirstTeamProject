@@ -2,7 +2,7 @@ package bot;
 
 import bot.buttons.*;
 import bot.command.StartCommand;
-import fsm.Option;
+import options.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;

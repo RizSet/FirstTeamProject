@@ -1,10 +1,6 @@
 package bot;
 
-import bot.buttons.AmountOfSingsAfterCommaButton;
-import bot.buttons.CurrencyButton;
-import bot.buttons.BankButton;
-import bot.buttons.GetInfoBotton;
-import bot.buttons.PropertiesButton;
+import bot.buttons.*;
 import bot.command.StartCommand;
 import fsm.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -75,6 +71,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("Час сповіщення"):
                     break;
                 case ("Головне меню"):
+                    execute(ReturnButton.getMessage(chatId));
                     break;
                 case ("2"):
                     execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));

@@ -69,13 +69,13 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("До головного меню"):
                     break;
                 case ("2"):
-                    execute(AmountOfSingsAfterCommaButton.TwoButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
                 case ("3"):
-                    execute(AmountOfSingsAfterCommaButton.ThreeButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
                 case ("4"):
-                    execute(AmountOfSingsAfterCommaButton.FourButton.setSingsAfterComma(update));
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
             }
         } catch (TelegramApiException e) {

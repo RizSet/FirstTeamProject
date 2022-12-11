@@ -2,7 +2,6 @@ package fsm;
 
 import parser.Banks;
 import parser.dto.Currencies;
-
 import java.util.Arrays;
 import java.util.List;
 

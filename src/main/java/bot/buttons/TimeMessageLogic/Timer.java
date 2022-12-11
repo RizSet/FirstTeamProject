@@ -1,13 +1,8 @@
 package bot.buttons.TimeMessageLogic;
 
-import bot.buttons.GetInfoBotton;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import java.util.concurrent.ScheduledExecutorService;
 
 
 public class Timer {
@@ -24,17 +19,6 @@ public class Timer {
 
         return result;
     }
-
-//    public void messageTimeSander(String chatId) {
-//        if (isNotationOn) {
-//            scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-//            scheduledExecutorService.scheduleAtFixedRate(
-//                    () -> GetInfoBotton.getInfoMessage(chatId),
-//                    timeToRemaind(),
-//                    86400,
-//                    TimeUnit.SECONDS);
-//        }
-//    }
 
 
     public int timeToRemaind(){

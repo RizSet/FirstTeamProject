@@ -1,9 +1,9 @@
-package fsm;
+package options;
 
 import parser.Banks;
 import parser.dto.Currencies;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Executors;
@@ -11,8 +11,12 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class Option {
     private int singAfterCommas = 2;
-    private List<Currencies> currencies = Arrays.asList(Currencies.USD, Currencies.EUR);
-    private Banks chosenBank = Banks.NBU;
+    private List<Currencies> currencies = new ArrayList<>();
+    private Banks chosenBank = Banks.PRIVAT;
+
+    public Option (){
+        currencies.add(Currencies.USD);
+    }
 
     public int getSingAfterCommas() {
         return singAfterCommas;
@@ -24,10 +28,6 @@ public class Option {
 
     public List<Currencies> getCurrencies() {
         return currencies;
-    }
-
-    public void setCurrencies(List<Currencies> currencies) {
-        this.currencies = currencies;
     }
 
     public Banks getChosenBank() {

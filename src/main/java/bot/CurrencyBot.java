@@ -1,25 +1,31 @@
 package bot;
 
+
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.buttons.TimeMessageButton;
-import bot.buttons.TimeMessageLogic.Timer;
+
+import bot.buttons.*;
+import bot.buttons.TimeMessageLogic.*;
+
 import bot.command.StartCommand;
-import fsm.Option;
+import options.Option;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import parser.Banks;
 
 import java.util.HashMap;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private Timer timer = new Timer();
-
 
     private static HashMap<String, Option> clients = new HashMap<>();
 
@@ -34,6 +40,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
     public CurrencyBot() {
         register(new StartCommand());
     }
+
 
 
     @Override
@@ -93,11 +100,11 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                         timer.setRemaindTime(18);
                         setTimeScheduler(chatId, timer.timeToRemaind());
                         break;
-                    case ("Вимкнути повідомлення"):
+                    case ("Р’РёРјРєРЅСѓС‚Рё РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ"):
                         execute(TimeMessageButton.shutDownSchedule(update));
                         cancelerSheduler();
                         break;
-                    case ("На головне меню"):
+                    case ("РќР° РіРѕР»РѕРІРЅРµ РјРµРЅСЋ"):
                         break;
                 }
             } catch (TelegramApiException e) {
@@ -105,36 +112,69 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
             }
         }
         chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
-        Option optionCurrentChat = new Option();
+        Option optionCurrentChat;
         if (!clients.containsKey(chatId)) {
             clients.put(chatId, new Option());
-        } else {
-            optionCurrentChat = clients.get(chatId);
         }
+
+        optionCurrentChat = clients.get(chatId);
+
         try {
             switch (update.getCallbackQuery().getData()) {
-                case ("Отримати інформацію по курсу валют"):
+                case ("РћС‚СЂРёРјР°С‚Рё С–РЅС„РѕСЂРјР°С†С–СЋ РїРѕ РєСѓСЂСЃСѓ РІР°Р»СЋС‚"):
                     execute(GetInfoBotton.getInfoMessage(chatId, optionCurrentChat));
                     break;
-                case ("Налаштування"):
+                case ("РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ"):
                     execute(PropertiesButton.getMessage(chatId));
                     break;
-                case ("Кількість знаків після коми"):
+                case ("РљС–Р»СЊРєС–СЃС‚СЊ Р·РЅР°РєС–РІ РїС–СЃР»СЏ РєРѕРјРё"):
+                    execute(AmountOfSingsAfterCommaButton.getMessage(chatId));
                     break;
-                case ("Валюта"):
+                case ("Р’Р°Р»СЋС‚Рё"):
+                    execute(CurrencyButton.getMessage(chatId));
                     break;
-                case ("Банк"):
+                case ("USD"):
+                    execute(CurrencyButton.CurrenciesButton.setCurrencies(update));
                     break;
-                case ("Час сповіщення"):
+                case ("EUR"):
+                    execute(CurrencyButton.CurrenciesButton.setCurrencies(update));
+                    break;
+                case ("Р‘Р°РЅРє Р· СЏРєРѕРіРѕ Р±СѓРґРµ Р±СЂР°С‚РёСЃСЊ РєСѓСЂСЃ"):
+                    execute(BankButton.getMessage(chatId,optionCurrentChat));
+                    break;
+                case ("РџСЂРёРІР°С‚Р‘Р°РЅРє"):
+                    optionCurrentChat.setChosenBank(Banks.PRIVAT);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("РќР‘РЈ"):
+                    optionCurrentChat.setChosenBank(Banks.NBU);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("РњРѕРЅРѕР‘Р°РЅРє"):
+                    optionCurrentChat.setChosenBank(Banks.MONO);
+                    execute(BankButton.getUpdatedKeyboard(update, optionCurrentChat));
+                    break;
+                case ("Р§Р°СЃ СЃРїРѕРІС–С‰РµРЅРЅСЏ"):
                     execute(TimeMessageButton.getMessageCreateNotation(chatId));
                     break;
-                case ("До головного меню"):
+                case ("Р“РѕР»РѕРІРЅРµ РјРµРЅСЋ"):
+                    execute(ReturnButton.getMessage(chatId));
+                    break;
+                case ("2"):
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
+                    break;
+                case ("3"):
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
+                    break;
+                case ("4"):
+                    execute(AmountOfSingsAfterCommaButton.NumberOfSignButton.setSingsAfterComma(update));
                     break;
             }
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public String getBotUsername() {
@@ -169,7 +209,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         if (messageNotation != null) {
             cancelerSheduler();
         }
-        messageNotation = scheduler.scheduleAtFixedRate(message, 5, 5, SECONDS);
+        messageNotation = scheduler.scheduleAtFixedRate(message, timeToRemaind, 86400, SECONDS);
     }
 
     public static void cancelerSheduler() {

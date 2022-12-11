@@ -1,6 +1,6 @@
 package message;
 
-import fsm.Option;
+import options.Option;
 import parser.*;
 import parser.dto.CurrencyRate;
 
@@ -15,13 +15,13 @@ public class MessageCurrency {
     public String printMesssage(Option option){
         String result = "";
         if (option.getChosenBank().equals(Banks.MONO)) {
-            result += " ÛÒ ‚ Monobank:\n";
+            result += "–ö—É—Ä—Å –≤ Monobank:\n";
             result += printCurrensy(monobank.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
-        } else if(option.getChosenBank().equals(Banks.PRIVATE)) {
-            result += " ÛÒ ‚ PrivatBank:\n";
+        } else if(option.getChosenBank().equals(Banks.PRIVAT)) {
+            result += "–ö—É—Ä—Å –≤ PrivatBank:\n";
             result += printCurrensy(privatbank.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
         } else {
-            result += " ÛÒ ‚ NBU:\n";
+            result += "–ö—É—Ä—Å –≤ NBU:\n";
             result += printCurrensy(nbu.getRate(option.getCurrencies()), option.getSingAfterCommas(), option);
         }
         return result;
@@ -32,17 +32,17 @@ public class MessageCurrency {
         if (option.getChosenBank().equals(Banks.NBU)) {
             for (CurrencyRate currensyInfo: currensyList) {
                 currensyResult.append(currensyInfo.getCurrency()).append("/UAH\n");
-                currensyResult.append(" ÛÒ:")
+                currensyResult.append("–ö—É—Ä—Å:")
                         .append(currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN))
                                 .append("\n");
             }
         } else {
             for (CurrencyRate currensyInfo : currensyList) {
                 currensyResult.append(currensyInfo.getCurrency()).append("/UAH\n");
-                currensyResult.append("œÓÍÛÔÍ‡:")
+                currensyResult.append("–ü–æ–∫—É–ø–∫–∞:")
                         .append(currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN))
                         .append("\n");
-                currensyResult.append("œÓ‰‡Ê:")
+                currensyResult.append("–ü—Ä–æ–¥–∞–∂:")
                         .append(currensyInfo.getSell().setScale(singAfterCommas, RoundingMode.DOWN))
                         .append("\n");
             }

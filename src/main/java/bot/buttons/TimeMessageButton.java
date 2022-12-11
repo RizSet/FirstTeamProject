@@ -14,7 +14,7 @@ public class TimeMessageButton {
     private static HashMap<String, KeyboardButton> keyboard = new HashMap<>();
 
     public static SendMessage getMessageCreateNotation(String chatId) {
-        String text = "Виберіть час сповіщення";
+        String text = "Р’РёР±РµСЂС–С‚СЊ С‡Р°СЃ СЃРїРѕРІС–С‰РµРЅРЅСЏ";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(chatId);
@@ -22,13 +22,13 @@ public class TimeMessageButton {
         for (int i = 9; i <= 18; i++) {
             keyboard.put(String.valueOf(i), KeyboardButton.builder().text(String.valueOf(i)).build());
         }
-        keyboard.put("Вимкнути повідомлення", KeyboardButton.builder().text("Вимкнути повідомлення").build());
-        keyboard.put("На головне меню", KeyboardButton.builder().text("На головне меню").build());
+        keyboard.put("Р’РёРјРєРЅСѓС‚Рё РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ", KeyboardButton.builder().text("Р’РёРјРєРЅСѓС‚Рё РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ").build());
+        keyboard.put("РќР° РіРѕР»РѕРІРЅРµ РјРµРЅСЋ", KeyboardButton.builder().text("РќР° РіРѕР»РѕРІРЅРµ РјРµРЅСЋ").build());
 
         KeyboardRow row1 = new KeyboardRow(List.of(keyboard.get("9"), keyboard.get("10"), keyboard.get("11")));
         KeyboardRow row2 = new KeyboardRow(List.of(keyboard.get("12"), keyboard.get("13"), keyboard.get("14")));
         KeyboardRow row3 = new KeyboardRow(List.of(keyboard.get("15"), keyboard.get("16"), keyboard.get("17")));
-        KeyboardRow row4 = new KeyboardRow(List.of(keyboard.get("18"), keyboard.get("Вимкнути повідомлення"), keyboard.get("На головне меню")));
+        KeyboardRow row4 = new KeyboardRow(List.of(keyboard.get("18"), keyboard.get("Р’РёРјРєРЅСѓС‚Рё РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ"), keyboard.get("РќР° РіРѕР»РѕРІРЅРµ РјРµРЅСЋ")));
 
         message.setReplyMarkup(ReplyKeyboardMarkup
                 .builder()
@@ -42,7 +42,7 @@ public class TimeMessageButton {
     }
 
     public static SendMessage setSchedule(Update update) {
-        String text = "Час сповіщення встановленно!";
+        String text = "Р§Р°СЃ СЃРїРѕРІС–С‰РµРЅРЅСЏ РІСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕ!";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(update.getMessage().getChatId());
@@ -52,7 +52,7 @@ public class TimeMessageButton {
     }
 
     public static SendMessage shutDownSchedule(Update update) {
-        String text = "Ви відмініли повіщення!";
+        String text = "Р’Рё РІРёРјРєРЅСѓР»Рё РѕРїРѕРІС–С‰РµРЅРЅСЏ!";
         SendMessage message = new SendMessage();
         message.setText(text);
         message.setChatId(update.getMessage().getChatId());

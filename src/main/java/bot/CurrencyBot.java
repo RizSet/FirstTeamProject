@@ -104,6 +104,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                         cancelerSheduler();
                         break;
                     case ("На головне меню"):
+                        execute(ReturnButton.getMessage(chatId));
                         break;
                 }
             } catch (TelegramApiException e) {
@@ -138,7 +139,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 case ("EUR"):
                     execute(CurrencyButton.CurrenciesButton.setCurrencies(update));
                     break;
-                case ("Банк з якого буде братись курс"):
+                case ("Банк"):
                     execute(BankButton.getMessage(chatId,optionCurrentChat));
                     break;
                 case ("ПриватБанк"):

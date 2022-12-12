@@ -39,7 +39,7 @@ public class MessageCurrency {
         } else {
             for (CurrencyRate currensyInfo : currensyList) {
                 currensyResult.append(currensyInfo.getCurrency()).append("/UAH\n");
-                currensyResult.append("Покупка:")
+                currensyResult.append("Купівля:")
                         .append(currensyInfo.getBuy().setScale(singAfterCommas, RoundingMode.DOWN))
                         .append("\n");
                 currensyResult.append("Продаж:")

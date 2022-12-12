@@ -24,7 +24,7 @@ public class PropertiesButton  {
         List<InlineKeyboardButton> rowButton1 = Stream.of("Кількість знаків після коми")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
-        List<InlineKeyboardButton> rowButton2 = Stream.of( "Банк з якого буде братись курс")
+        List<InlineKeyboardButton> rowButton2 = Stream.of( "Банк")
                 .map(it -> InlineKeyboardButton.builder().text(it).callbackData(it).build())
                 .collect(Collectors.toList());
         List<InlineKeyboardButton> rowButton3 = Stream.of( "Валюти")

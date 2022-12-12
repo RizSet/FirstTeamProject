@@ -42,7 +42,6 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
     }
 
 
-
     @Override
     public void processNonCommandUpdate(Update update) {
         String chatId;

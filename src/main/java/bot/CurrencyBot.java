@@ -1,6 +1,5 @@
 package bot;
 
-
 import bot.buttons.GetInfoBotton;
 import bot.buttons.PropertiesButton;
 import bot.buttons.TimeMessageButton;
@@ -26,6 +25,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
     private Timer timer = new Timer();
+
+    private BotConstants botConstants = new BotConstants();
 
     private static HashMap<String, Option> clients = new HashMap<>();
 
@@ -178,12 +179,12 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
 
     @Override
     public String getBotUsername() {
-        return BotConstants.BOT_NAME;
+        return botConstants.getBotName();
     }
 
     @Override
     public String getBotToken() {
-        return BotConstants.BOT_TOKEN;
+        return botConstants.getBotToken();
     }
 
     static ScheduledFuture<?> messageNotation;

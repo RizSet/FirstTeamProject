@@ -5,9 +5,7 @@ import parser.dto.Currencies;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+
 
 public class Option {
     private int singAfterCommas = 2;

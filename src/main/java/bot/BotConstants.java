@@ -11,7 +11,7 @@ public class BotConstants {
     private Properties property = new Properties();
 
 
-    private void propertiesReader(){
+    public void propertiesReader(){
         try {
             fis = new FileInputStream("src/main/resources/applications.properties");
             property.load(fis);

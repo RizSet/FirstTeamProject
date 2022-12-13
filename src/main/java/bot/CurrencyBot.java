@@ -176,14 +176,15 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         }
     }
 
-
     @Override
     public String getBotUsername() {
+        botConstants.propertiesReader();
         return botConstants.getBotName();
     }
 
     @Override
     public String getBotToken() {
+        botConstants.propertiesReader();
         return botConstants.getBotToken();
     }
 

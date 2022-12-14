@@ -24,7 +24,7 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 
 public class CurrencyBot extends TelegramLongPollingCommandBot {
-    private Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
     private BotConstants botConstants = new BotConstants();
 
@@ -53,7 +53,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     case ("9"):
                         execute(TimeMessageButton.setSchedule(update));
                         timer.setRemaindTime(9);
-                        setTimeScheduler(chatId, timer.timeToRemaind());
+                        setTimeScheduler(chatId, 5);
                         break;
                     case ("10"):
                         execute(TimeMessageButton.setSchedule(update));
@@ -102,7 +102,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                         break;
                     case ("Вимкнути повідомлення"):
                         execute(TimeMessageButton.shutDownSchedule(update));
-                        cancelerSheduler();
+                        cancelerSheduler(arrMessageNotation.get(chatId));
                         break;
                     case ("На головне меню"):
                         execute(ReturnButton.getMessage(chatId));
@@ -188,7 +188,8 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         return botConstants.getBotToken();
     }
 
-    static ScheduledFuture<?> messageNotation;
+
+    static HashMap<String, ScheduledFuture<?>> arrMessageNotation = new HashMap<>();
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
@@ -201,6 +202,8 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
             optionCurrentChat = clients.get(chatId);
         }
         Option finalOptionCurrentChat = optionCurrentChat;
+
+
         Runnable message = () -> {
             try {
                 execute(GetInfoBotton.getInfoMessage(chatId, finalOptionCurrentChat));
@@ -208,15 +211,15 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                 throw new RuntimeException(e);
             }
         };
-        if (messageNotation != null) {
-            cancelerSheduler();
+        if (arrMessageNotation.get(chatId) != null) {
+            cancelerSheduler(arrMessageNotation.get(chatId));
         }
-        messageNotation = scheduler.scheduleAtFixedRate(message, timeToRemaind, 86400, SECONDS);
+        ScheduledFuture<?> messageNotation = scheduler.scheduleAtFixedRate(message, 15, 15, SECONDS);
+        arrMessageNotation.put(chatId, messageNotation);
     }
 
-    public static void cancelerSheduler() {
+    public static void cancelerSheduler(ScheduledFuture<?> messageNotation) {
         messageNotation.cancel(false);
-        messageNotation = null;
     }
 
 }

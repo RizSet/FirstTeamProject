@@ -53,7 +53,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
                     case ("9"):
                         execute(TimeMessageButton.setSchedule(update));
                         timer.setRemaindTime(9);
-                        setTimeScheduler(chatId, 5);
+                        setTimeScheduler(chatId, timer.timeToRemaind());
                         break;
                     case ("10"):
                         execute(TimeMessageButton.setSchedule(update));
@@ -214,7 +214,7 @@ public class CurrencyBot extends TelegramLongPollingCommandBot {
         if (arrMessageNotation.get(chatId) != null) {
             cancelerSheduler(arrMessageNotation.get(chatId));
         }
-        ScheduledFuture<?> messageNotation = scheduler.scheduleAtFixedRate(message, 15, 15, SECONDS);
+        ScheduledFuture<?> messageNotation = scheduler.scheduleAtFixedRate(message, timeToRemaind, 86400, SECONDS);
         arrMessageNotation.put(chatId, messageNotation);
     }
 
